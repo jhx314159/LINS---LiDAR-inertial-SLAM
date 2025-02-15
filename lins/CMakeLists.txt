@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(lins)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -O3")
 
 find_package(catkin REQUIRED COMPONENTS
     cloud_msgs
@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
     tf
 )
 
+find_package(Boost REQUIRED COMPONENTS serialization thread timer chrono)
 find_package(GTSAM REQUIRED QUIET)
 find_package(PCL REQUIRED QUIET)
 find_package(OpenCV REQUIRED QUIET)
