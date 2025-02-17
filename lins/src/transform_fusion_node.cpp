@@ -44,10 +44,10 @@ class TransformFusion {
   tf::StampedTransform laserOdometryTrans2;
   tf::TransformBroadcaster tfBroadcaster2;
 
-  tf::StampedTransform map_2_camera_init_Trans;
+  tf::StampedTransform map_2_lidar_init_Trans;
   tf::TransformBroadcaster tfBroadcasterMap2CameraInit;
 
-  tf::StampedTransform camera_2_base_link_Trans;
+  tf::StampedTransform lidar_2_base_link_Trans;
   tf::TransformBroadcaster tfBroadcasterCamera2Baselink;
 
   float transformSum[6];
@@ -67,17 +67,17 @@ class TransformFusion {
     subOdomAftMapped = nh.subscribe<nav_msgs::Odometry>(
         "/aft_mapped_to_init", 5, &TransformFusion::odomAftMappedHandler, this);
 
-    laserOdometry2.header.frame_id = "/camera_init";
-    laserOdometry2.child_frame_id = "/camera";
+    map_2_lidar_init_Trans.frame_id_ = "/map";
+    map_2_lidar_init_Trans.child_frame_id_ = "lidar_init";
 
-    laserOdometryTrans2.frame_id_ = "/camera_init";
-    laserOdometryTrans2.child_frame_id_ = "/camera";
+    laserOdometry2.header.frame_id = "lidar_init";
+    laserOdometry2.child_frame_id = "/velodyne";
 
-    map_2_camera_init_Trans.frame_id_ = "/map";
-    map_2_camera_init_Trans.child_frame_id_ = "/camera_init";
+    laserOdometryTrans2.frame_id_ = "lidar_init";
+    laserOdometryTrans2.child_frame_id_ = "/velodyne";
 
-    camera_2_base_link_Trans.frame_id_ = "/camera";
-    camera_2_base_link_Trans.child_frame_id_ = "/base_link";
+    lidar_2_base_link_Trans.frame_id_ = "/velodyne";
+    lidar_2_base_link_Trans.child_frame_id_ = "/base_link";
 
     for (int i = 0; i < 6; ++i) {
       transformSum[i] = 0;
